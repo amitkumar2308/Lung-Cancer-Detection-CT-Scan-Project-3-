@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow-y:hidden ;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dashed-square {
+            position: relative;
+            left: -400px;
+            width: 650px;
+            height: 550px;
+            border-radius: 50px;
+            border: 5px dashed #7acfd3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Prevent content from overflowing */
+        }
+
+        /* Style for the file input */
+        input[type="file"] {
+            display: none; /* Hide the default file input */
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #7acfd3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Style for the uploaded image */
+        #uploaded-image {
+            max-width: 100%;
+            max-height: 100%;
+            display: none; /* Initially hidden */
+            object-fit: contain; /* Maintain aspect ratio and fit within the container */
+        }
+        .bouncy-button {
+            position: relative;
+            left: -400px;
+            top: -30px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #7acfd3;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            width: 300px;
+            font-size: 36px;
+            cursor: pointer;
+        }
+
+        .bouncy-button:hover {
+            background-color: #348e93;
+        }
+
+        .predicted-class {
+            position: relative;
+            top: -350px;
+            right: -400px;
+            width: 600px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ffffff;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: #020202;
+            border-radius: 0 50px 0 0; /* Rounded corner on the top right */
+            font-size: 24px;
+        }
+
+        .spinner {
+            position: relative;
+            right: -300px;
+            top: -350px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #7acfd3;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 4s linear infinite;
+            display: none; /* Initially hidden */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashed-square">
+            <label for="file-upload" class="custom-file-upload">
+                Upload Scan
+            </label>
+            <input type="file" id="file-upload">
+            <img id="uploaded-image" src="" alt="Uploaded Scan">
+        </div>
+        <div class="predicted-class" id="predicted-class"></div>
+        <div class="spinner" id="spinner"></div>
+        <button class="bouncy-button" id="show-result-button">Show Result</button>
+    </div>
+    
+    <script>
+      const fileInput = document.getElementById("file-upload");
+        const uploadedImage = document.getElementById("uploaded-image");
+        const showResultButton = document.getElementById("show-result-button");
+        const predictedClassElement = document.getElementById('predicted-class');
+        const spinner = document.getElementById('spinner');
+
+        fileInput.addEventListener("change", function () {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImage.src = e.target.result;
+                    uploadedImage.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        showResultButton.addEventListener('click', () => {
+            spinner.style.display = 'block'; // Show spinner while processing
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                spinner.style.display = 'none'; // Hide spinner when response is received
+                predictedClassElement.textContent = `Predicted: ${data.predicted_class}`;
+            })
+            .catch(error => console.error(error));
+        });
+    </script>
+</body>
+</html>
