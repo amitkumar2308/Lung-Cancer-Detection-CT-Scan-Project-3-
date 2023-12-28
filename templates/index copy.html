@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+            overflow-x: hidden;
+           
+        }
+
+        .background-container {
+            width: 100%;
+            height: 100vh; /* 100% of the viewport height */
+            background: linear-gradient(90deg, #7acfd3 40%,  white -30%); /* 70% white, 30% blue */
+            position: relative;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .lungs {
+            position: relative;
+            width: 700px;
+            left: 50px;
+        }
+
+        .blur-background {
+            position: absolute;
+            top: 0;
+            left: 580px;
+            width: 60%;
+            height: 100%;
+            backdrop-filter: blur(80px); /* Adjust the blur intensity as needed */
+            background-color: rgba(255, 255, 255, 0.3); /* Adjust the opacity as needed */
+        }
+        h1{
+            position: relative;
+            top: -500px;
+            left: 350px;
+            font-size: 50px;
+            font-weight: 700;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .bouncy-button {
+            position: relative;
+            top: -520px;
+            left: 990px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #7acfd3;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    width: 200px;
+    font-size: 36px;
+    cursor: pointer;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.bouncy-button:hover {
+    
+    background-color: #61b2b6;
+}
+h3{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    position: relative;
+    width: 500px;
+    top: -70px;
+    right: -1160px;
+}
+ /* Media Queries */
+
+    @media only screen and (max-width: 480px) {
+        .background-container {
+            display: none;
+        }
+
+        .blur-background {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lungs {
+            position:relative;
+            width: 100%;
+            left: 0;
+            width:300px;
+        }
+
+        h1 {
+            top: 20px;
+            left: 50px;
+            font-size: 36px;
+        }
+
+        .bouncy-button {
+            top: 0;
+            left: 0;
+            margin: 20px auto;
+        }
+
+        h3 {
+            width: 100%;
+            right: 0;
+            text-align: center;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="blur-background"></div>
+        <img class="lungs" src="static/images/lungs-PhotoRoom.png-PhotoRoom.png">
+
+
+        <div class="content">
+            <h1>LUNG CANCER DETECTION <BR>THROUGH CT SCANS</h1>
+            
+        </div>
+        <a href="{{ url_for('final_page') }}"><button class="bouncy-button">Try Now!</button></a>
+
+    </div>
+    <h3>By Amit Kumar (@the.jr.engineer)</h3>
+</body>
+</html>
