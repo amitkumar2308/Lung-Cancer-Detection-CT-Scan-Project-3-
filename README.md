@@ -55,3 +55,7 @@ This project is for research and educational purposes only and should not be use
 
 This readme provides a general framework for your project. Feel free to adjust and expand upon it based on your specific goals, resources, and chosen methodologies. I hope this helps you get started on your exciting project!
 
+
+![Screenshot 2023-12-13 113025 (1)](https://github.com/amitkumar2308/Lung-Cancer-Detection-CT-Scan-Project-3-/assets/97108600/9bcc2645-0a49-4aea-9688-44ed1b524e41)
+![Screenshot 2023-12-13 113147 (1)](https://github.com/amitkumar2308/Lung-Cancer-Detection-CT-Scan-Project-3-/assets/97108600/aa50a130-2f5c-4214-abf9-115daeb6dde8)
+
